@@ -150,93 +150,45 @@ install_ritual_2() {
     echo -e "${BOLD}${MAGENTA}输入命令后，当文本快速滚动时，不要按任何键，关闭终端，然后打开新终端重新登录控制台。${NC}"
 }
 
-install_ritual_3() {
-    # 安装foundry
-    echo -e "${CYAN}cd $HOME${NC}"
-    cd $HOME
-
-    echo -e "${CYAN}mkdir foundry${NC}"
-    mkdir foundry
-
-    echo -e "${CYAN}cd $HOME/foundry${NC}"
-    cd $HOME/foundry
-
-    echo -e "${CYAN}curl -L https://foundry.paradigm.xyz | bash${NC}"
+# 其他安装步骤（Foundry、Rust、Node.js、NPM依赖等）
+install_foundry() {
+    echo -e "${CYAN}安装Foundry工具...${NC}"
     curl -L https://foundry.paradigm.xyz | bash
-
-    export PATH="/root/.foundry/bin:$PATH"
-
-    echo -e "${CYAN}source ~/.bashrc${NC}"
-    source ~/.bashrc
-
-    echo -e "${CYAN}foundryup${NC}"
-    foundryup
-
-    echo -e "${CYAN}cd ~/infernet-container-starter/projects/hello-world/contracts${NC}"
-    cd ~/infernet-container-starter/projects/hello-world/contracts
-
-    echo -e "${CYAN}rm -rf lib${NC}"
-    rm -rf lib
-
-    echo -e "${CYAN}forge install --no-commit foundry-rs/forge-std${NC}"
-    forge install --no-commit foundry-rs/forge-std
-
-    echo -e "${CYAN}forge install --no-commit ethereum/solidity-highlighting${NC}"
-    forge install --no-commit ethereum/solidity-highlighting
-
-    echo -e "${CYAN}forge install --no-commit dsl-org/ethers-web3${NC}"
-    forge install --no-commit dsl-org/ethers-web3
-
-    echo -e "${CYAN}forge install --no-commit openzeppelin/contracts${NC}"
-    forge install --no-commit openzeppelin/contracts
+    echo -e "${CYAN}Foundry安装完成！${NC}"
 }
 
-install_ritual_4() {
-    # 安装rust
-    echo -e "${CYAN}curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh${NC}"
+install_rust() {
+    echo -e "${CYAN}安装Rust...${NC}"
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-
-    echo -e "${CYAN}source $HOME/.cargo/env${NC}"
-    source $HOME/.cargo/env
-
-    echo -e "${CYAN}rustup update stable${NC}"
-    rustup update stable
+    echo -e "${CYAN}Rust安装完成！${NC}"
 }
 
-install_ritual_5() {
-    # 检查并安装Node.js
-    if ! command_exists node; then
-        echo -e "${RED}Node.js未安装。正在安装Node.js...${NC}"
-        curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-        sudo apt-get install -y nodejs
-        echo -e "${CYAN}Node.js安装成功。${NC}"
-    else
-        echo -e "${CYAN}Node.js已安装。${NC}"
-    fi
+install_nodejs() {
+    echo -e "${CYAN}安装Node.js...${NC}"
+    curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+    sudo apt-get install -y nodejs
+    echo -e "${CYAN}Node.js安装完成！${NC}"
 }
 
-install_ritual_6() {
-    # 安装npm依赖
-    echo -e "${CYAN}cd ~/infernet-container-starter/projects/hello-world/contracts${NC}"
-    cd ~/infernet-container-starter/projects/hello-world/contracts
-
-    echo -e "${CYAN}npm install${NC}"
+install_npm_dependencies() {
+    echo -e "${CYAN}安装NPM依赖...${NC}"
+    cd ~/infernet-container-starter
     npm install
+    echo -e "${CYAN}NPM依赖安装完成！${NC}"
 }
 
-install_ritual_7() {
-    # 启动项目
-    echo -e "${CYAN}cd ~/infernet-container-starter/projects/hello-world/contracts${NC}"
-    cd ~/infernet-container-starter/projects/hello-world/contracts
-
-    echo -e "${CYAN}forge create Contract.sol${NC}"
-    forge create Contract.sol
+start_project() {
+    echo -e "${CYAN}启动项目...${NC}"
+    cd ~/infernet-container-starter/deploy
+    docker-compose up -d
+    echo -e "${CYAN}项目启动完成！${NC}"
 }
 
-install_ritual_8() {
-    # 编译
-    echo -e "${CYAN}forge build${NC}"
-    forge build
+build_project() {
+    echo -e "${CYAN}编译项目...${NC}"
+    cd ~/infernet-container-starter
+    npm run build
+    echo -e "${CYAN}项目编译完成！${NC}"
 }
 
 # 菜单函数
@@ -254,15 +206,17 @@ display_menu() {
     read -p "选择: " choice
 }
 
-# 执行选择
+# 调用菜单函数，获取用户输入并执行对应操作
+display_menu
+
 case $choice in
     1) install_ritual ;;
     2) install_ritual_2 ;;
-    3) install_ritual_3 ;;
-    4) install_ritual_4 ;;
-    5) install_ritual_5 ;;
-    6) install_ritual_6 ;;
-    7) install_ritual_7 ;;
-    8) install_ritual_8 ;;
+    3) install_foundry ;;
+    4) install_rust ;;
+    5) install_nodejs ;;
+    6) install_npm_dependencies ;;
+    7) start_project ;;
+    8) build_project ;;
     *) echo -e "${RED}无效的选择，请重新选择！${NC}" ;;
 esac
