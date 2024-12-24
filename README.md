@@ -10,9 +10,9 @@
 
 （二）安装步骤
 克隆仓库到本地：
-使用命令git clone https://github.com/feiyulc/ritual-node-installer.git将仓库克隆到本地机器。
+使用命令 ```git clone https://github.com/feiyulc/ritual-node-installer.git```  将仓库克隆到本地机器。
 进入仓库目录：
-执行cd ritual-node-installer进入克隆下来的仓库目录。
+执行 ```cd ritual-node-installer``` 进入克隆下来的仓库目录。
 运行安装脚本：
 执行./install.sh（如果脚本没有执行权限，先使用chmod +x install.sh赋予权限）。
 根据提示选择相应的操作，如安装基本文件及 Ritual Node、更新 Ritual Node 等。
