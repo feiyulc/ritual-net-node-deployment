@@ -29,7 +29,7 @@ install_ritual() {
     sudo apt -qy install curl git jq lz4 build-essential screen
 
     echo -e "${BOLD}${CYAN}检查Docker安装情况...${NC}"
-    if! command_exists docker; then
+    if ! command_exists docker; then
         echo -e "${RED}Docker未安装。正在安装Docker...${NC}"
         sudo apt install docker.io -y
         echo -e "${CYAN}Docker安装成功。${NC}"
@@ -43,7 +43,7 @@ install_ritual() {
     echo -e "${CYAN}sudo apt-get update${NC}"
     sudo apt-get update
 
-    if! command_exists docker-compose; then
+    if ! command_exists docker-compose; then
         echo -e "${RED}Docker Compose未安装。正在安装Docker Compose...${NC}"
         # Docker Compose的最新版本下载URL
         sudo curl -L https://github.com/docker/compose/releases/download/$(curl --silent https://api.github.com/repos/docker/compose/releases/latest | jq.name -r)/docker-compose-$(uname -s)-$(uname -m) -o /usr/bin/docker-compose
