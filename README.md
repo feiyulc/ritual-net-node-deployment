@@ -1,10 +1,13 @@
 # ritual-net-node-deployment
 一、仓库概述
 本仓库包含一个用于自动化安装、管理和维护 Ritual Node 的脚本，旨在为用户提供便捷的方式来处理与 Ritual Node 相关的各种操作，包括安装、更新、配置修改以及卸载等。
+
 二、使用说明
+
 （一）系统要求
 运行脚本的系统需支持bash脚本执行环境。
 具备apt包管理器（通常为基于 Debian 或 Ubuntu 的系统）。
+
 （二）安装步骤
 克隆仓库到本地：
 使用命令git clone https://github.com/feiyulc/ritual-node-installer.git将仓库克隆到本地机器。
@@ -13,6 +16,7 @@
 运行安装脚本：
 执行./install.sh（如果脚本没有执行权限，先使用chmod +x install.sh赋予权限）。
 根据提示选择相应的操作，如安装基本文件及 Ritual Node、更新 Ritual Node 等。
+
 （三）功能操作
 安装 Ritual Node 相关组件
 选择菜单中的选项 1、2、3 可分别按照不同步骤进行 Ritual Node 的安装。
@@ -33,11 +37,14 @@
 卸载 Ritual Node
 选择菜单中的选项 8，可彻底卸载 Ritual Node 及其相关组件。
 包括删除 Docker 容器、镜像，清除相关的目录和文件，如foundry相关文件、infernet-container-starter目录等。
+
 （四）注意事项
 在执行安装或更新操作前，建议备份重要数据，以防数据丢失。
 确保系统有足够的磁盘空间、内存等资源来支持 Ritual Node 的运行。
 对于修改配置文件（如钱包地址、RPC 地址等）的操作，务必仔细核对输入信息，错误的配置可能导致节点无法正常工作。
 若在使用过程中遇到问题，可以查看脚本输出的错误信息，并在仓库的Issues页面查找是否有类似问题或提交新的问题反馈。
+
+
 三、目录结构
 install.sh：主脚本文件，包含了所有的功能实现逻辑。
 README.md：本使用说明文件，提供给用户如何使用仓库中的脚本。
